@@ -56,6 +56,71 @@ class LinkedList :
                 temp_node = temp_node.next
         return "not Foundd"
 
+    def get(self,index):
+        if index == 0 :
+            return self.head.value
+        elif index > self.length-1 or index < 0 :
+            return "Index out of Range"
+        else:
+            temp_node = self.head
+            for i in range(index):
+                temp_node = temp_node.next
+            return temp_node.value
+
+    def set(self,index,value):
+        if index == 0 :
+            self.head.value = value
+            return True
+        elif index > self.length-1 or index < 0 :
+            return False
+        else:
+            temp_node = self.head
+            for i in range(index):
+                temp_node = temp_node.next
+            temp_node.value = value
+            return True
+        
+    def popF(self):
+        if self.length == 0:
+            return "Empty LL"
+        else:
+            self.head = self.head.next
+            self.length-=1
+            return True
+        
+    def pop(self):
+        if self.length == 0 :
+            return "Empty LL"
+        if self.length == 1 :
+            self.head = self.head.next
+            self.length-=1
+            return "done"
+        else:
+            pop_node = self.tail
+            temp_node = self.head 
+            for i in range(self.length-2):
+                temp_node = temp_node.next
+            self.tail = temp_node
+            temp_node.next = None
+            self.length-=1
+            return pop_node.value
+        
+    def remove(self,index):
+        if index == 0 :
+            self.popF()
+            return "Done"
+        if self.length == 0 :
+            return "empty LL"
+        elif index > self.length or index < 0 :
+            return "Index Out of Range"
+        else:
+            temp_node=self.head
+            for i in range(index-1):
+                temp_node = temp_node.next
+            x = temp_node.next
+            temp_node.next = temp_node.next.next
+            return x.value
+
 
     def disp(self):
         temp_node = self.head
@@ -72,9 +137,19 @@ ll.prepend(90)
 ll.append(102)
 ll.insert(3,99)
 
-print(ll.search(77))
+# print(ll.search(77))
 print(ll.length)
 
-print("\n ----- \n")
+print("\n -----")
 ll.disp()
-print("\n ----- \n")
+print("\n")
+
+# print(ll.remove(0))
+print(ll.remove(4))
+
+
+print( ll.length)
+print("\n -----")
+ll.disp()
+print("\n")
+
