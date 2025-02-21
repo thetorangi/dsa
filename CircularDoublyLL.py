@@ -165,6 +165,13 @@ class CDLL:
                 res+=" -> "
         return res
     
+    def deleteLL(self):
+        if not self.head:
+            return "Empty LL"
+        else:
+            self.head = None
+            self.tail = None
+            return "Doneee"
         
 cdll = CDLL()
 
@@ -175,6 +182,8 @@ cdll.append(30)
 cdll.prepend(70)
 print("---Straight---")
 print(cdll.disp())
-print(cdll.search(21))
+print(cdll.deleteLL())
+print(cdll.disp())
+# print(cdll.search(21))
 # print("---Reverse---")
 # print(cdll.revDisp())
