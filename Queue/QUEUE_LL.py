@@ -40,6 +40,8 @@ class Queue :
     def dequeue(self):
         if self.isEmpty():
             return "Empty Queue"
+        elif self.ll.head == self.ll.tail :
+            self.ll.head = self.ll.tail = None
         else:
             val = self.ll.head.value
             self.ll.head = self.ll.head.next
