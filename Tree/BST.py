@@ -22,12 +22,6 @@ class treeNode:
         
         return "Added Sucessfully"
 
-    def disp(self,rootNode):
-        if not rootNode:
-            return
-        self.disp(rootNode.left)
-        print(rootNode.data)
-        self.disp(rootNode.right)
     
     def inOrder(self,rootNode):
         if rootNode is None:
@@ -82,21 +76,49 @@ class treeNode:
         else:
             rf =self.search(rootNode.right,value)
             return rf
+        
+    def delete(self,rootNode,value):
+        if not rootNode:
+            return rootNode
+        if value < rootNode.data:
+            rootNode.left = self.delete(rootNode.left,value)
+        elif value > rootNode.data:
+            rootNode.right = self.delete(rootNode.right,value)
+        else:
+            if rootNode.left is None:
+                temp = rootNode.right
+                rootNode = None
+                return temp
+            if rootNode.right is None:
+                temp = rootNode.left
+                rootNode = None
+                return temp
+            
+            curr = rootNode.right
+            while curr.left:
+                curr = curr.left
+            rootNode.data = curr.data
+            rootNode.right = self.delete(rootNode.right,curr.data)
+        return rootNode
+    
+    def delBST(self,rootNode):
+        rootNode.data = None
+        rootNode.left = None
+        rootNode.right = None
+        return "Done"
 
 BST = treeNode(None)
 
-BST.disp(BST)
 
 BST.insert(BST,40)
-BST.insert(BST,60)
-BST.insert(BST,70)
-BST.insert(BST,50)
 BST.insert(BST,30)
-BST.insert(BST,10)
+BST.insert(BST,50)
+BST.insert(BST,20)
+BST.insert(BST,35)
+BST.insert(BST,45)
+BST.insert(BST,55)
+BST.insert(BST,42)
+BST.insert(BST,41)
 
-# BST.inOrder(BST)
 
 print(BST.levelOrder(BST))
-
-
-print(BST.search(BST,90))
