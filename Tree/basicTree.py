@@ -1,80 +1,134 @@
-import QueueLinkedList as queue
-class TreeNode:
+class Node:
     def __init__(self,data):
         self.data = data
-        self.left = None
         self.right = None
+        self.left = None
+
+    def inOrder(self,rootNode):
+        if not rootNode:
+            return 
+        else:
+            self.inOrder(rootNode.left)
+            print(rootNode.data)
+            self.inOrder(rootNode.right)
     
-    # def addChild(self,TreeNode):
-    #     self.children.append(TreeNode)
+    def preOrder(self,rootNode):
+        if not rootNode:
+            return
+        else:
+            print(rootNode.data)
+            self.preOrder(rootNode.left)
+            self.preOrder(rootNode.right)
 
-    # def __str__(self,level=0):
-    #     res = " " * level +str(self.data) + "\n"
-    #     for child in self.children:
-    #         res += child.__str__(level+1)
-    #     return res
+    def postOrder(self,rootNode):
+        if not rootNode:
+            return
+        else:
+            self.postOrder(rootNode.left)
+            self.postOrder(rootNode.right)
+            print(rootNode.data)
+
+    def levelOrder(self,rootNode):
+        if not rootNode:
+            return 
+        else:
+            curr = rootNode
+            queue = []
+            res =[]
+            queue.append(rootNode)
+
+            while len(queue) > 0 :
+                curr = queue.pop(0)
+                res.append(curr.data)
+                if curr.left is not None:
+                    queue.append(curr.left)
+                if curr.right is not None:
+                    queue.append(curr.right)
+            return res
     
-tree = TreeNode("Drinks" )
+    def search(self,rootNode,val):
+        if not rootNode:
+            return "Not Found"
+        else:
+            if rootNode.data == val:
+                return "Success"
+            lf = self.search(rootNode.left,val)
+            if lf == "Success":
+                return "Success"
+            rf = self.search(rootNode.right,val)
+            return rf        
+    
+    def searchLevel(self,rootNode,val):
+        if not rootNode:
+            return "not Found"
+        else :
+            curr = rootNode
+            queue = []
+            res = []
+            queue.append(rootNode)
+            while len(queue) > 0 :
+                curr = queue.pop(0)
+                if curr.data == val :
+                    return "Success"
+                res.append(curr.data)
+                if curr.left is not None:
+                    queue.append(curr.left)
+                if curr.right is not None:
+                    queue.append(curr.right)
+        return "Not Found"
 
-cold = TreeNode("Cold")
-hot = TreeNode("Hot")
+    def ins(seld,rootNode,newNode):
+        if not rootNode:
+            rootNode = newNode
+        else:
+            queue = []
+            res = []
+            curr = rootNode
+            queue.append(rootNode)
+            while len(queue)  > 0 :
+                curr = queue.pop(0)
+                res.append(curr.data)
+                if curr.left is not None:
+                    queue.append(curr.left)
+                else:
+                    curr.left = newNode
+                    return "inserted"
+                if curr.right is not None:
+                    queue.append(curr.right)
+                else:
+                    curr.right = newNode
+                    return "Inserted SucessFully "
 
-tree.left = hot
-tree.right = cold
-
-tea = TreeNode("Tea")
-coffee = TreeNode("Coffee")
-
-fanta = TreeNode("Fanta" )
-cola = TreeNode("Cola" )
-
+tree = Node("Drinks")
+hot = Node("Hot")
+cold = Node("Cold")
+tree.left = cold
+tree.right = hot
+tea = Node("Tea")
+coffee = Node("Coffee")
+fanta = Node("Fanta")
+cola = Node("Cola")
+cold.left = fanta
+cold.right = cola
 hot.left = tea
 hot.right = coffee
+boost = Node("Boost")
 
-cold.left = cola
-cold.right = fanta
-
-def preOrder(rootNode):
-    if not rootNode:
-        return
-    print(rootNode.data)
-    preOrder(rootNode.left)
-    preOrder(rootNode.right)
+# print("Preorder\n")
+# tree.preOrder(tree)
+# print("\nInorder\n")
+# tree.inOrder(tree)
+# print("\nPostOrder\n")
+# tree.postOrder(tree)
 
 
-def postOrder(rootNode):
-    if not rootNode:
-        return
-    preOrder(rootNode.left)
-    preOrder(rootNode.right)
-    print(rootNode.data)
+# print(tree.levelOrder(tree))
 
-def inOrder(rootNode):
-    if not rootNode:
-        return
-    preOrder(rootNode.left)
-    print(rootNode.data)
-    preOrder(rootNode.right)
+# print(tree.ins(tree ,  boost))
 
-def levelOrder(rootNode):
-    if not rootNode:
-        return
-    customQueue = queue.Queue()
-    customQueue.enqueue(rootNode)
-    while not (customQueue.isEmpty()):
-        root = customQueue.dequeue()
-        print(root.value.data)
-        if root.value.left is not None:
-            customQueue.enqueue(root.value.left)
-        if root.value.right is not None:
-            customQueue.enqueue(root.value.right)
-    
+# print(tree.levelOrder(tree))
 
-print("----- Pre Order Taversal ----")
-preOrder(tree)
-print("----- In Order Taversal ----")
-inOrder(tree)
-print("----- Post Order Taversal ----")
-postOrder(tree)
-print("----- Level Order Taversal ----")
-levelOrder(tree)
+# print(tree.searchLevel(tree , "Tea"))
+
+
+# print(tree.search(tree , "Colda"))
