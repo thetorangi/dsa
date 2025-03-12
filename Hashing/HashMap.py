@@ -16,12 +16,37 @@ class HashTable:
                 break
         if not found:
             self.arr[h].append((key,value))
+        
+    def __getitem__(self,key):
+        h = self.getHash(key)
+        for i , num in enumerate(self.arr[h]):
+            if num[0]==key:
+                return num[1]
+    
+    def __delitem__(self,key):
+        h = self.getHash(key)
+        for i , num in enumerate(self.arr[h]):
+            if num[0]==key:
+                del self.arr[h][i]
+
+
 
 
 t = HashTable()
 
-t['March 9'] = 120
-t['March 9'] = 125
+t['march 6'] = 120
+t['march 17'] = 126
+t['march 19'] = 125
 
-print(t.arr)
-        
+
+for i , num in enumerate(t.arr):
+    print(i  , " " , num)
+
+
+del t['march 17']
+
+
+print(f"\nAfter Deletion \n")
+
+for i , num in enumerate(t.arr):
+    print(i  , " " , num)
