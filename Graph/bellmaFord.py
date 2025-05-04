@@ -45,5 +45,3 @@ g.addEdge("D", "B", 1)
 g.addEdge("E", "B", 4)
 g.addEdge("E", "D", 2)
 g.bellmanFord("E")
-
-                    
