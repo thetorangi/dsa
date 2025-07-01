@@ -36,15 +36,15 @@ class treeNode:
             return
         else:
             print(rootNode.data)
-            self.inOrder(rootNode.left)
-            self.inOrder(rootNode.right)
+            self.preOrder(rootNode.left)
+            self.preOrder(rootNode.right)
 
     def postOrder(self,rootNode):
         if rootNode is None:
             return
         else:
-            self.inOrder(rootNode.left)
-            self.inOrder(rootNode.right)
+            self.postOrder(rootNode.left)
+            self.postOrder(rootNode.right)
             print(rootNode.data)
 
     def levelOrder(self,rootNode):
